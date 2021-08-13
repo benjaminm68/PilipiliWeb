@@ -9,7 +9,7 @@
 </div>
 
 {% for message in app.flashes('success') %}
-		<div class="flash-notice-delete">
+		<div class="alert alert-success" role="alert">
 			{{ message }}
 		</div>
 {% endfor %}
@@ -21,6 +21,7 @@
       <th scope="col">Nom</th>
       <th scope="col">Slug</th>
       <th scope="col">Description</th>
+      <th scope="col">Marque</th>
       <th scope="col">Prix</th>
       <th scope="col">Status</th>
       <th scope="col">Date création</th>
@@ -37,6 +38,7 @@
       <td>{{ product.slug }}</td>
       <td>{{ product.description|raw }}</td>
       <td>{{ (product.price / 100)|number_format(2, ',', '.') }}€</td>
+      <td>{{ product.brandId }}</td>
       {% if product.enabled == 0 %}
       <td>Caché</td>
       {% else %}

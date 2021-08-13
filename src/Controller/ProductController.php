@@ -7,6 +7,7 @@ use App\Form\ProductType;
 use Cocur\Slugify\Slugify;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +32,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/add", name="product_add")
      */
-    public function add(Product $product = null, Request $request, EntityManagerInterface $em): Response
+    public function add(Product $product = null, Request $request, EntityManagerInterface $em, LoggerInterface $dbLogger): Response
     {
 
         if (!$product) {
@@ -58,6 +59,8 @@ class ProductController extends AbstractController
                 'success',
                 'Nouveau produit ajouté'
             );
+
+            $dbLogger->info('Nouveau produit crée');
 
             return $this->redirectToRoute('admin_product_list');
         }
@@ -89,10 +92,8 @@ class ProductController extends AbstractController
             // On ajouté la date de modification
             $product->setUpdatedAt(new \DateTime('now',new DateTimeZone('Europe/Paris')));
             
-
             $em->persist($product);
             $em->flush();
-
 
             // Affiche un message lors de la création
             $this->addFlash(

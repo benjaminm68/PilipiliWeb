@@ -3,12 +3,25 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+
+    /**
+     * @Route("/log", name="all_logs")
+     */
+    public function log(LoggerInterface $dblogger): Response
+    {
+
+        $dblogger->error('Premier log');
+
+        return $this->render('index.html.twig');
+    }
+
     /**
      * @Route("/", name="home")
      */
@@ -21,4 +34,5 @@ class HomeController extends AbstractController
             'products' => $products
         ]);
     }
+
 }
