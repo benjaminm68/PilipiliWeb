@@ -14,10 +14,10 @@ class HomeController extends AbstractController
     /**
      * @Route("/log", name="all_logs")
      */
-    public function log(LoggerInterface $dblogger): Response
+    public function log(LoggerInterface $dbLogger): Response
     {
 
-        $dblogger->error('Premier log');
+        $dbLogger->error('Premier log');
 
         return $this->render('index.html.twig');
     }

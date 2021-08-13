@@ -26,6 +26,7 @@ class DbHandler extends AbstractProcessingHandler
         $log->setLevel($record['level']);
         $log->setLevelName($record['level_name']);
         $log->setMessage($record['message']);
+        $log->setExtra($record['extra']);
 
         $this->em->persist($log);
         $this->em->flush();
