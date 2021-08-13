@@ -53,14 +53,10 @@ class ProductController extends AbstractController
             $em->persist($product);
             $em->flush();
 
-
-            // Traduction du message addFlash
-            $message = $translator->trans('New product added');
-
             // Affiche un message de succès
             $this->addFlash(
                 'success',
-                $message
+                'Nouveau produit ajouté'
             );
 
             return $this->redirectToRoute('admin_product_list');
