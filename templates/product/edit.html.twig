@@ -1,0 +1,18 @@
+{% extends "admin/index.html.twig" %}
+
+
+
+{% block adminContent %}
+
+<h1>Modifier un produit</h1>
+
+{{ form_start(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.description, { 'id': 'trumbowyg-demo' }) }}
+    
+{{ form_end(form) }}
+
+
+
+{% endblock %}

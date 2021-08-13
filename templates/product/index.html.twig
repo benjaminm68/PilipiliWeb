@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+<section class="products m-4">
+	<h1 class="text-center">Tous les produits</h1>
+
+		<div class="product-content d-flex justify-content-evenly flex-wrap">
+			{% for product in products %}
+					<div class="card mb-2" style="width: 18rem;">
+						<img src="http://placehold.it/150x100" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">{{ product.name }}</h5>
+							<p class="card-text">{{ product.description|raw }}</p>
+							<p class="card-text">{{ product.price }}</p>
+							<p class="card-text">{{ product.brandid }}</p>
+						</div>
+					</div>
+			{% endfor %}
+		</div>
+		
+	</section>
+{% endblock %}

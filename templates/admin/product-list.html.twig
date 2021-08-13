@@ -1,0 +1,55 @@
+{% extends "admin/index.html.twig" %}
+
+{% block adminContent %}
+
+<h2 class="text-center mb-4">Liste des produits</h2>
+
+<div>
+    <a href="{{ path('product_add') }}" class="btn btn-success btn-sm my-4">Ajouter un produit</a>
+</div>
+
+{% for message in app.flashes('success') %}
+		<div class="flash-notice-delete">
+			{{ message }}
+		</div>
+{% endfor %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Slug</th>
+      <th scope="col">Description</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Status</th>
+      <th scope="col">Date création</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for product in products %}
+
+  {% if product %}
+  <tr>
+      <th scope="row">{{ product.id }}</th>
+      <td>{{ product.name }}</td>
+      <td>{{ product.slug }}</td>
+      <td>{{ product.description|raw }}</td>
+      <td>{{ (product.price / 100)|number_format(2, ',', '.') }}€</td>
+      {% if product.enabled == 0 %}
+      <td>Caché</td>
+      {% else %}
+      <td>Publié</td>
+      {% endif %}
+      <td>{{ product.createdAt|date('d/m/Y') }}</td>
+      <td><a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-primary btn-sm">Modifier</a> <a href="{{ path('product_delete', {'id': product.id}) }}" class="btn btn-danger btn-sm">Supprimer</a></td>
+    </tr>
+  {% endif %}
+  
+    
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
