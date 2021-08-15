@@ -2,8 +2,10 @@
 
 namespace App\Command;
 
+use Symfony\Component\Mime\Email;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -19,11 +21,13 @@ class ProductActivationCommand extends Command
 
     private $em;
     private $productRepository;
+    private $mailer;
 
-    public function __construct(EntityManagerInterface $em, ProductRepository $productRepository)
+    public function __construct(EntityManagerInterface $em, ProductRepository $productRepository, MailerInterface $mailer)
     {
         $this->em = $em;
         $this->productRepository = $productRepository;
+        $this->mailer = $mailer;
 
 
         parent::__construct();
@@ -82,6 +86,16 @@ class ProductActivationCommand extends Command
             
             if($resultActivation === 1){
                 $output->writeln('Le produit a été activé');
+
+                $email = (new Email())
+                ->from('hello@example.com')
+                ->to('testelan68@gmail.com')
+                ->subject('Nouveau produit activé')
+                ->text('Le produit '.$productFind->getName().' a été ajouté !
+                http://localhost:8000/produits');
+
+                $this->mailer->send($email);
+
             }else{
                 $output->writeln('Le produit a été désactivé');
             }
