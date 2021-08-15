@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pilipiliweb
+{% endblock %}
+
+{% block body %}
+
+	<section class="products m-4">
+	<h1 class="text-center">Poltique Cookie</h1>
+
+		<div>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam quaerat aspernatur animi sequi vel, dolorum atque doloremque vero ducimus? Debitis autem alias corrupti praesentium reiciendis consequatur quisquam incidunt nemo eius?</p>
+        </div>
+		
+        {{ render_esi(path('ch_cookie_consent.show', { 'locale' : 'en' })) }}
+        {{ render_esi(path('ch_cookie_consent.show_if_cookie_consent_not_set', { 'locale' : app.request.locale })) }}
+
+	</section>
+{% endblock %}

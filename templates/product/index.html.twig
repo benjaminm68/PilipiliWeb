@@ -2,7 +2,9 @@
 
 {% block title %}Hello ProductController!{% endblock %}
 
+
 {% block body %}
+
 <section class="products m-4">
 	<h1 class="text-center">Tous les produits</h1>
 
@@ -13,7 +15,7 @@
 						<div class="card-body">
 							<h5 class="card-title">{{ product.name }}</h5>
 							<p class="card-text">{{ product.description|raw }}</p>
-							<p class="card-text">{{ product.price }}</p>
+							<p class="card-text">{{ (product.price / 100)|number_format(2, ',', '.') }}€</p>
 							<p class="card-text">{{ product.brandid }}</p>
 						</div>
 					</div>

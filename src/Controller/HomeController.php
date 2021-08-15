@@ -11,6 +11,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
 
+    
+    /**
+     * @Route("/", name="home")
+     */
+    public function index(): Response
+    {
+        
+        $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['enabled' => true]);
+        
+        return $this->render('home/index.html.twig',[
+            'products' => $products
+        ]);
+    }
+    
     /**
      * @Route("/log", name="all_logs")
      */
@@ -23,16 +37,11 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/", name="home")
+     * @Route("/cookies", name="cookies")
      */
-    public function index(): Response
+    public function cookies(): Response
     {
 
-        $products = $this->getDoctrine()->getRepository(Product::class)->findBy(['enabled' => true]);
-
-        return $this->render('home/index.html.twig',[
-            'products' => $products
-        ]);
+        return $this->render('home/cookies.html.twig');
     }
-
 }
